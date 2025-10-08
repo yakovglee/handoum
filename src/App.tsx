@@ -21,7 +21,7 @@ function App() {
             않고 '백단심계(흰 꽃잎)' 또는 '홍단심계(분홍 꽃잎)'라고 기술했다.
           </TypographyLarge>
 
-          <SectionCards />
+          <SectionCards data={data}/>
 
           <DataTableDemo data={data} />
         </div>
