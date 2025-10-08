@@ -29,88 +29,42 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import type { Data } from "@/utils/types";
 
-const data: Payment[] = [
+const columns: ColumnDef<Data>[] = [
   {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@example.com",
+    id: "surface",
+    accessorFn: (row) => row.word.surface,
+    header: "surface",
+    cell: ({ getValue }) => (
+      <div className="capitalize">{String(getValue())}</div>
+    ),
+    enableSorting: false,
   },
   {
-    id: "3u1reuv4",
-    amount: 242,
-    status: "success",
-    email: "Abe45@example.com",
-  },
-  {
-    id: "derv1ws0",
-    amount: 837,
-    status: "processing",
-    email: "Monserrat44@example.com",
-  },
-  {
-    id: "5kma53ae",
-    amount: 874,
-    status: "success",
-    email: "Silas22@example.com",
-  },
-  {
-    id: "bhqecj4p",
-    amount: 721,
-    status: "failed",
-    email: "carmella@example.com",
-  },
-];
-
-export type Payment = {
-  id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
-};
-
-export const columns: ColumnDef<Payment>[] = [
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
+    id: "pos",
+    accessorFn: (row) => row.word.pos,
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        className="gap-1"
+      >
+        pos
+        <ArrowUpDown className="h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ getValue }) => (
+      <div className="lowercase">{String(getValue())}</div>
     ),
   },
-  {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ArrowUpDown />
-        </Button>
-      );
-    },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-  },
-  {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-
-      return <div className="text-right font-medium">{formatted}</div>;
-    },
-  },
 ];
 
-export function DataTableDemo() {
+interface DataTableDemoProps {
+  data: Data[];
+}
+
+export function DataTableDemo({ data }: DataTableDemoProps) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -138,41 +92,44 @@ export function DataTableDemo() {
     },
   });
 
+  const uniquePosValues = React.useMemo(() => {
+    const all = new Set<string>();
+    data.forEach((d) => all.add(d.word.pos));
+    return Array.from(all);
+  }, [data]);
+
   return (
     <div className="w-full px-4">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter part of speech..."
+          value={(table.getColumn("pos")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            table.getColumn("pos")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown />
+              Part of speech <ChevronDown />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
+          <DropdownMenuContent align="end" className="h-50">
+            {uniquePosValues.map((pos) => {
+              return (
+                <DropdownMenuCheckboxItem
+                  key={pos}
+                  className="capitalize"
+                  checked={table.getColumn("pos")?.getFilterValue() === pos}
+                  onCheckedChange={() =>
+                    table.getColumn("pos")?.setFilterValue(pos)
+                  }
+                >
+                  {pos}
+                </DropdownMenuCheckboxItem>
+              );
+            })}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

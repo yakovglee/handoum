@@ -2,6 +2,7 @@ import { SectionCards } from "./components/section-cards";
 import { DataTableDemo } from "./components/table";
 import { TextareaWithButton } from "./components/text-area";
 import { TypographyLarge } from "./components/typography";
+import { data } from "./utils/response";
 
 function App() {
   return (
@@ -21,9 +22,10 @@ function App() {
           </TypographyLarge>
 
           <SectionCards />
-          <DataTableDemo />
+
+          <DataTableDemo data={data} />
         </div>
-      </div>ß
+      </div>
     </div>
   );
 }
