@@ -1,35 +1,36 @@
-import { IconTrendingUp } from "@tabler/icons-react";
+import type { Data } from "@/utils/types";
+import WordCard from "./word-card";
+import { Separator } from "@/components/ui/separator";
+interface SectionCardsProps {
+  data: Data[];
+}
 
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardAction,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+export function SectionCards({ data }: SectionCardsProps) {
+  const grammar = [
+    ...new Map(
+      data.filter((d) => /^[JEX]/.test(d.word.pos)).map((d) => [d.word.pos, d])
+    ).values(),
+  ].sort((a, b) => a.word.pos.localeCompare(b.word.pos));
 
-export function SectionCards() {
+  const complicated = [
+    ...new Map(
+      data
+        .filter((d) => d.word.entry_type != "*")
+        .map((d) => [d.word.entry_type, d])
+    ).values(),
+  ].sort((a, b) => a.word.entry_type.localeCompare(b.word.entry_type));
+
   return (
     <div className="*:data-[slot=card]:from-primary/70 *:data-[slot=card]:to-secondary/30 grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
-      <Card className="@container/card">
-        <CardHeader>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            $1,250.00
-          </CardTitle>
-          <CardAction>
-            <Badge variant="outline">
-              <IconTrendingUp />
-              +12.5%
-            </Badge>
-          </CardAction>
-        </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
-          <div className="line-clamp-1 flex gap-2 font-medium">
-            Trending up this month <IconTrendingUp className="size-4" />
-          </div>
-        </CardFooter>
-      </Card>
+      <Separator className="my-4 bg-primary/30 @xl/main:col-span-2 @5xl/main:col-span-4" />
+      {grammar.map((item, index) => (
+        <WordCard key={index} item={item} />
+      ))}
+      <Separator className="my-4 bg-primary/30 @xl/main:col-span-2 @5xl/main:col-span-4" />
+      {complicated.map((item, index) => (
+        <WordCard key={index} item={item} />
+      ))}
+      <Separator className="my-4 bg-primary/30 @xl/main:col-span-2 @5xl/main:col-span-4" />
     </div>
   );
 }
