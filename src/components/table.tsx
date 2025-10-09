@@ -61,8 +61,8 @@ export function DataTableDemo({ data }: DataTableDemoProps) {
       ),
     },
     {
-      id: "pos",
-      accessorFn: (row) => row.word.pos,
+      id: "pos_trans",
+      accessorFn: (row) => row.word.pos_trans,
       header: ({ column }) => (
         <Button
           variant="ghost"
@@ -98,11 +98,11 @@ export function DataTableDemo({ data }: DataTableDemoProps) {
 
   const uniquePosValues = React.useMemo(() => {
     const all = new Set<string>();
-    data.forEach((d) => all.add(d.word.pos));
+    data.forEach((d) => all.add(d.word.pos_trans));
     return Array.from(all).sort();
   }, [data]);
 
-  const posColumn = table.getColumn("pos");
+  const posColumn = table.getColumn("pos_trans");
 
   return (
     <div className="w-full px-4">

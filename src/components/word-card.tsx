@@ -24,7 +24,7 @@ function WordCard({ item }: WordCardProps) {
           {item.word.surface}
         </CardTitle>
         <CardAction>
-          <Badge variant="outline">{item.word.pos}</Badge>
+          <Badge variant="outline">{item.word.pos_trans}</Badge>
         </CardAction>
       </CardHeader>
 
@@ -36,7 +36,7 @@ function WordCard({ item }: WordCardProps) {
                 {item.lemma}
               </ItemTitle>
               <ItemActions>
-                <Badge variant="outline">{item.pos}</Badge>
+                <Badge variant="outline">{item.pos_trans}</Badge>
               </ItemActions>
             </ItemHeader>
             <ItemSeparator />
