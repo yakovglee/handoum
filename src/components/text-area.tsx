@@ -1,14 +1,39 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { SendHorizontal } from "lucide-react";
+import { SendHorizontal, X } from "lucide-react";
+import { useTextStore } from "@/store/text";
 
 export function TextareaWithButton() {
+  const { text, setText } = useTextStore();
+
   return (
     <div className="flex flex-col h-full gap-3 px-4">
-      <Textarea placeholder="Type text to analyze..." />
+      <div className="relative">
+        <Textarea
+          placeholder="Type text to analyze..."
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          className="pr-10"
+        />
+
+        {text && (
+          <X
+            size={18}
+            onClick={() => setText("")}
+            className="absolute right-3 top-3"
+          />
+        )}
+      </div>
+
       <div className="flex justify-end">
-        <Button className="w-fit">
-          Analyze <SendHorizontal />
+        <Button
+          className="w-fit"
+          onClick={() => {
+            console.log("Text to analyze:", text);
+          }}
+          disabled={!text.trim()}
+        >
+          Analyze <SendHorizontal className="ml-2" />
         </Button>
       </div>
     </div>
