@@ -22,15 +22,15 @@ export function SectionCards({ data }: SectionCardsProps) {
 
   return (
     <div className="*:data-[slot=card]:from-primary/70 *:data-[slot=card]:to-secondary/30 grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
-      <Separator className="my-4 bg-primary/30" />
+      <Separator className="my-4 bg-primary/30 @xl/main:col-span-2 @5xl/main:col-span-4" />
       {grammar.map((item, index) => (
         <WordCard key={index} item={item} />
       ))}
-      <Separator className="my-4 bg-primary/30" />
+      <Separator className="my-4 bg-primary/30 @xl/main:col-span-2 @5xl/main:col-span-4" />
       {complicated.map((item, index) => (
         <WordCard key={index} item={item} />
       ))}
-      <Separator className="my-4 bg-primary/30" />
+      <Separator className="my-4 bg-primary/30 @xl/main:col-span-2 @5xl/main:col-span-4" />
     </div>
   );
 }
