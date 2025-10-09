@@ -7,6 +7,7 @@ export interface BodyReadRootPost {
 export interface MecabKoDicWord {
   surface: string;
   pos: string;
+  pos_trans: string;
   semantic_class: string;
   has_final_consonant: boolean;
   reading: string;
@@ -19,6 +20,7 @@ export interface MecabKoDicWord {
 export interface ParsedExpression {
   lemma: string;
   pos: string;
+  pos_trans: string;
 }
 
 export interface Data {

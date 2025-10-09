@@ -5,6 +5,7 @@ export const example_data: Data[] = [
     "word": {
       "surface": "아버지",
       "pos": "NNG",
+      "pos_trans": "일반 명사",
       "semantic_class": "*",
       "has_final_consonant": false,
       "reading": "아버지",
@@ -19,6 +20,7 @@ export const example_data: Data[] = [
     "word": {
       "surface": "가",
       "pos": "JKS",
+      "pos_trans": "주격 조사",
       "semantic_class": "*",
       "has_final_consonant": false,
       "reading": "가",
@@ -33,6 +35,7 @@ export const example_data: Data[] = [
     "word": {
       "surface": "방",
       "pos": "NNG",
+      "pos_trans": "일반 명사",
       "semantic_class": "*",
       "has_final_consonant": true,
       "reading": "방",
@@ -47,6 +50,7 @@ export const example_data: Data[] = [
     "word": {
       "surface": "에",
       "pos": "JKB",
+      "pos_trans": "부사격 조사",
       "semantic_class": "*",
       "has_final_consonant": false,
       "reading": "에",
@@ -61,6 +65,7 @@ export const example_data: Data[] = [
     "word": {
       "surface": "들어가",
       "pos": "VV",
+      "pos_trans": "동사",
       "semantic_class": "*",
       "has_final_consonant": false,
       "reading": "들어가",
@@ -75,6 +80,7 @@ export const example_data: Data[] = [
     "word": {
       "surface": "신다",
       "pos": "EP+EC",
+      "pos_trans": "EP+EC",
       "semantic_class": "*",
       "has_final_consonant": false,
       "reading": "신다",
@@ -86,11 +92,13 @@ export const example_data: Data[] = [
     "parsed_expression": [
       {
         "lemma": "시",
-        "pos": "EP"
+        "pos": "EP",
+        "pos_trans": "선어말 어미"
       },
       {
         "lemma": "ㄴ다",
-        "pos": "EC"
+        "pos": "EC",
+        "pos_trans": "연결 어미"
       }
     ]
   }
