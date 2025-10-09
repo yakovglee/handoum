@@ -11,7 +11,7 @@ import {
   useReactTable,
   type VisibilityState,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown } from "lucide-react";
+import { ArrowUpDown, ChevronDown, MoveLeft, MoveRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -73,7 +73,7 @@ export function DataTableDemo({ data }: DataTableDemoProps) {
           <ArrowUpDown className="h-4 w-4" />
         </Button>
       ),
-      cell: ({ getValue }) => <div className="lowercase">{String(getValue())}</div>,
+      cell: ({ getValue }) => <div className="uppercase">{String(getValue())}</div>,
     },
   ], [setSearchFromQuery]);
 
@@ -133,7 +133,6 @@ export function DataTableDemo({ data }: DataTableDemoProps) {
                 key={pos}
                 className="capitalize"
                 checked={posColumn?.getFilterValue() === pos}
-                // Behave like a radio: pick this POS, or uncheck to clear
                 onCheckedChange={(checked) =>
                   posColumn?.setFilterValue(checked ? pos : "")
                 }
@@ -190,7 +189,7 @@ export function DataTableDemo({ data }: DataTableDemoProps) {
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            Previous
+            <MoveLeft />
           </Button>
           <Button
             variant="outline"
@@ -198,7 +197,7 @@ export function DataTableDemo({ data }: DataTableDemoProps) {
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            Next
+            <MoveRight />
           </Button>
         </div>
       </div>
