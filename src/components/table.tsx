@@ -61,7 +61,7 @@ export function DataTableDemo({ data }: DataTableDemoProps) {
       ),
     },
     {
-      id: "pos_trans",
+      id: "pos",
       accessorFn: (row) => row.word.pos_trans,
       header: ({ column }) => (
         <Button
@@ -102,7 +102,7 @@ export function DataTableDemo({ data }: DataTableDemoProps) {
     return Array.from(all).sort();
   }, [data]);
 
-  const posColumn = table.getColumn("pos_trans");
+  const posColumn = table.getColumn("pos");
 
   return (
     <div className="w-full px-4">
