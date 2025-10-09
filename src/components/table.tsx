@@ -44,7 +44,6 @@ export function DataTableDemo({ data }: DataTableDemoProps) {
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  // ✅ columns depend on setSearchFromQuery → keep them inside and memoized
   const columns = React.useMemo<ColumnDef<Data>[]>(() => [
     {
       id: "surface",
@@ -122,7 +121,6 @@ export function DataTableDemo({ data }: DataTableDemoProps) {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="max-h-64 overflow-auto">
-            {/* Clear option */}
             <DropdownMenuCheckboxItem
               checked={!posColumn?.getFilterValue()}
               onCheckedChange={() => posColumn?.setFilterValue("")}

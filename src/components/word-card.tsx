@@ -8,14 +8,17 @@ import {
   ItemSeparator,
   ItemTitle,
 } from "@/components/ui/item";
+import { useSearchStore } from "@/store/search";
 import type { Data } from "@/utils/types";
 
 interface WordCardProps {
   item: Data;
 }
 function WordCard({ item }: WordCardProps) {
+  const setSearchFromQuery = useSearchStore((s) => s.setSearchFromQuery);
+
   return (
-    <Card className="@container/card">
+    <Card className="@container/card" onClick={() => setSearchFromQuery(item.word.surface)}>
       <CardHeader>
         <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
           {item.word.surface}
