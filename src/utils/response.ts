@@ -80,7 +80,7 @@ export const example_data: Data[] = [
     "word": {
       "surface": "신다",
       "pos": "EP+EC",
-      "pos_trans": "EP+EC",
+      "pos_trans": "선어말 어미+연결 어미",
       "semantic_class": "*",
       "has_final_consonant": false,
       "reading": "신다",
