@@ -37,13 +37,12 @@ export function WordDataTable({ data }: WordDataTableProps) {
       header: "surface",
       enableSorting: false,
       cell: ({ getValue }) => (
-        <button
-          type="button"
+        <div
           className="capitalize underline-offset-2 hover:underline"
           onClick={() => setSearchFromQuery(String(getValue()))}
         >
           {String(getValue())}
-        </button>
+        </div>
       ),
     },
     {
