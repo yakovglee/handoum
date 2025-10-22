@@ -9,7 +9,7 @@ export function TypographyLarge({ children }: TypographyLargeProps) {
   const searchWords = useSearchStore((s) => s.searchWords);
 
   return (
-    <div className="text-lg font-semibold px-4 sticky top-0 bg-card p-2 max-h-[30vh] overflow-y-auto rounded-md shadow-sm">
+    <div className="text-lg font-semibold px-4 sticky top-0 bg-card p-2 max-h-[30vh] overflow-y-auto rounded-md shadow-sm z-20">
       <Highlighter
         highlightClassName="bg-primary/70 text-white transition-colors rounded-sm px-1"
         searchWords={searchWords}

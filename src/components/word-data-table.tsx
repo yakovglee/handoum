@@ -21,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import type { Data } from "@/utils/types";
 import { useSearchStore } from "@/store/search";
 import { DataTable } from "./data-table";
+import { filterWordsByPos } from "@/lib/utils";
 
 interface WordDataTableProps {
   data: Data[];
@@ -28,7 +29,15 @@ interface WordDataTableProps {
 
 export function WordDataTable({ data }: WordDataTableProps) {
   const setSearchFromQuery = useSearchStore((s) => s.setSearchFromQuery);
+    const setSearchPos = useSearchStore((s) => s.setSearchPos);
+  const setSearchWords = useSearchStore((s) => s.setSearchWords);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  
+  const handlePosClick = (pos: string) => {
+      const words = filterWordsByPos(data, pos);
+      setSearchPos(pos);
+      setSearchWords(words);
+    };
 
   const columns = React.useMemo<ColumnDef<Data>[]>(() => [
     {
@@ -51,14 +60,14 @@ export function WordDataTable({ data }: WordDataTableProps) {
       header: ({ column }) => (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() =>  column.toggleSorting(column.getIsSorted() === "asc")}
           className="gap-1"
         >
           pos
           <ArrowUpDown className="h-4 w-4" />
         </Button>
       ),
-      cell: ({ getValue }) => <div className="uppercase">{String(getValue())}</div>,
+      cell: ({ row }) => <div className="uppercase" onClick={() => handlePosClick(row.original.word.pos)}>{row.original.word.pos_trans}</div>,
     },
   ], [setSearchFromQuery]);
 

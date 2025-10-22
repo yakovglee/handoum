@@ -8,7 +8,9 @@ import {
   ItemSeparator,
   ItemTitle,
 } from "@/components/ui/item";
+import { filterWordsByPos } from "@/lib/utils";
 import { useSearchStore } from "@/store/search";
+import { useTextStore } from "@/store/text";
 import type { Data } from "@/utils/types";
 
 interface WordCardProps {
@@ -16,15 +18,33 @@ interface WordCardProps {
 }
 function WordCard({ item }: WordCardProps) {
   const setSearchFromQuery = useSearchStore((s) => s.setSearchFromQuery);
+  const setSearchPos = useSearchStore((s) => s.setSearchPos);
+  const setSearchWords = useSearchStore((s) => s.setSearchWords);
+  const { data } = useTextStore();
+
+  const handlePosClick = (pos: string) => {
+    const words = filterWordsByPos(data, pos);
+    setSearchPos(pos);
+    setSearchWords(words);
+  };
 
   return (
-    <Card className="@container/card" onClick={() => setSearchFromQuery(item.word.surface)}>
+    <Card
+      className="@container/card"
+      onClick={() => setSearchFromQuery(item.word.surface)}
+    >
       <CardHeader>
         <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
           {item.word.surface}
         </CardTitle>
         <CardAction>
-          <Badge variant="outline">{item.word.pos_trans}</Badge>
+          <Badge
+            variant="outline"
+            className="z-10"
+            onClick={() => handlePosClick(item.word.pos)}
+          >
+            {item.word.pos_trans}
+          </Badge>
         </CardAction>
       </CardHeader>
 
@@ -36,7 +56,13 @@ function WordCard({ item }: WordCardProps) {
                 {item.lemma}
               </ItemTitle>
               <ItemActions>
-                <Badge variant="outline">{item.pos_trans}</Badge>
+                <Badge
+                  variant="outline"
+                  className="z-10"
+                  onClick={() => handlePosClick(item.pos)}
+                >
+                  {item.pos_trans}
+                </Badge>
               </ItemActions>
             </ItemHeader>
             <ItemSeparator />

@@ -5,7 +5,7 @@ import { create } from "zustand";
 interface TextState {
   text: string;
   setText: (value: string) => void;
-  data: Data[] | null;
+  data: Data[];
   loading: boolean;
   error: string | null;
   fetchParsedData: () => Promise<void>;
@@ -44,7 +44,7 @@ export const useTextStore = create<TextState>((set, get) => ({
       const result: Data[] = await response.json();
       set({ data: result, loading: false });
     } catch (err: any) {
-      set({ error: err.message || "Failed to fetch data", loading: false, data: null });
+      set({ error: err.message || "Failed to fetch data", loading: false });
     }
   },
 }));
