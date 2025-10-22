@@ -1,5 +1,5 @@
 import { SectionCards } from "./components/section-cards";
-import { DataTableDemo } from "./components/table";
+import { WordDataTable } from "./components/word-data-table";
 import { TextareaWithButton } from "./components/text-area";
 import { TypographyLarge } from "./components/typography";
 import { useTextStore } from "./store/text";
@@ -20,7 +20,7 @@ function App() {
           {data && data.length > 0 ? (
             <>
               <SectionCards data={data} />
-              <DataTableDemo data={data} />
+              <WordDataTable data={data} />
             </>
           ) : (
             !loading && (
